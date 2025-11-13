@@ -17,8 +17,8 @@ if PROJECT_ROOT not in sys.path:
 from extract_data.crawl_data_fao import extract_fao
 from transform_data.transform_fao_long import transform_fao
 from load_data.load_fao_to_supabase import load_fao_supabase
-from utils.supabase_client import supabase
-from utils.config import SUPABASE_TABLE
+from utils.supabase_client import get_supabase_client
+from utils.config import TABLES
 
 # -----------------------------
 # Default args
@@ -76,7 +76,8 @@ with DAG(
         Lấy dữ liệu từ Supabase và trả về dict để Airflow vẽ biểu đồ.
         Key = năm, Value = tổng sản lượng
         """
-        data = supabase.table(SUPABASE_TABLE).select("*").execute().data
+        supabase = get_supabase_client()
+        data = supabase.table(TABLES['fao']).select("*").execute().data
         if not data:
             return {}
 
