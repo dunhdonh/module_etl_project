@@ -86,5 +86,4 @@ with DAG(
         python_callable=_analyze
     )
 
-    # --- DAG flow ---
     t1 >> t2 >> t3 >> t4 >> t5

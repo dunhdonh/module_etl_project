@@ -1,0 +1,11 @@
+<!--etl_web/templates/index.html-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature Chart</title>
+</head>
+<body>
+    <h1>Temperature Chart</h1>
+    <img src="{{ url_for('static', filename='temperature_plot.png') }}?t={{ timestamp }}" alt="Temperature Chart" style="width:80%; max-width:1200px;">
+</body>
+</html>

@@ -18,7 +18,7 @@ def _analyze_temperature(clean_path):
     # Vẽ chart
     plt.figure(figsize=(14, 6))
     plt.plot(df["time"], df["temperature_c"])
-    plt.title("Biến động nhiệt độ theo thời gian")
+    plt.title("Biến động nhiệt độ theo thời gian ở Hà Nội (kinh độ 21.0278, vĩ độ 105.8342)")
     plt.xlabel("Thời gian")
     plt.ylabel("Nhiệt độ (°C)")
     plt.grid(True)
