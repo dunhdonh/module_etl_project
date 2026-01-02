@@ -1,11 +1,179 @@
-<!--etl_web/templates/index.html-->
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Temperature Chart</title>
-</head>
-<body>
-    <h1>Temperature Chart</h1>
-    <img src="{{ url_for('static', filename='temperature_plot.png') }}?t={{ timestamp }}" alt="Temperature Chart" style="width:80%; max-width:1200px;">
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Data Visualization Dashboard</title>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        background-color: #f5f6fa;
+      }
+
+      header {
+        background-color: #2c3e50;
+        padding: 16px;
+        color: white;
+        text-align: center;
+      }
+
+      .menu {
+        display: flex;
+        justify-content: center;
+        background-color: #34495e;
+      }
+
+      .menu button {
+        background: none;
+        border: none;
+        color: white;
+        padding: 14px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+
+      .menu button:hover,
+      .menu button.active {
+        background-color: #1abc9c;
+      }
+
+      .content {
+        padding: 30px;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      /* Section animation */
+      .chart-section {
+        display: none;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .chart-section.active {
+        display: block;
+        animation: fadeSlide 0.4s ease forwards;
+      }
+
+      @keyframes fadeSlide {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .chart-section h2 {
+        margin-bottom: 20px;
+        color: #2c3e50;
+      }
+
+      .chart-section img {
+        width: 100%;
+        max-width: 1100px;
+        margin-bottom: 30px;
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Big Data Visualization Dashboard</h1>
+      <p>Static charts generated from ETL pipeline</p>
+    </header>
+
+    <div class="menu">
+      <button class="active" onclick="showSection('temperature', this)">
+        Temperature
+      </button>
+      <button onclick="showSection('crypto', this)">Crypto</button>
+      <button onclick="showSection('house', this)">House</button>
+      <button onclick="showSection('traffic', this)">Traffic</button>
+    </div>
+
+    <div class="content">
+      <!-- Temperature -->
+      <div id="temperature" class="chart-section" style="display: block">
+        <h2>Temperature Analysis</h2>
+        <img
+          src="../static/output_data/temperature_plot.png"
+          alt="Temperature Chart"
+        />
+      </div>
+
+      <!-- Crypto -->
+      <div id="crypto" class="chart-section">
+        <h2>Crypto Market Analysis</h2>
+        <img
+          src="../static/output_data/crypto_analysis/top20_marketcap.png"
+          alt="Top 20 Market Cap"
+        />
+      </div>
+
+      <!-- House -->
+      <div id="house" class="chart-section">
+        <h2>Real Estate Analysis</h2>
+        <img
+          src="../static/output_data/house_analysis/area_distribution.png"
+          alt="Area Distribution"
+        />
+        <img
+          src="../static/output_data/house_analysis/price_distribution.png"
+          alt="Price Distribution"
+        />
+        <img
+          src="../static/output_data/house_analysis/price_per_m2_boxplot.png"
+          alt="Price per m2 Boxplot"
+        />
+      </div>
+
+      <!-- Traffic -->
+      <div id="traffic" class="chart-section">
+        <h2>Traffic Analysis</h2>
+        <img
+          src="../static/output_data/traffic_congestion_plot.png"
+          alt="Traffic Congestion"
+        />
+        <img
+          src="../static/output_data/traffic_speed_plot.png"
+          alt="Traffic Speed"
+        />
+      </div>
+    </div>
+
+    <script>
+      function showSection(id, btn) {
+        const sections = document.querySelectorAll(".chart-section");
+        const buttons = document.querySelectorAll(".menu button");
+
+        sections.forEach((sec) => {
+          sec.classList.remove("active");
+          sec.style.display = "none";
+        });
+
+        buttons.forEach((b) => b.classList.remove("active"));
+
+        const target = document.getElementById(id);
+        target.style.display = "block";
+
+        target.offsetHeight;
+        target.classList.add("active");
+
+        btn.classList.add("active");
+      }
+    </script>
+
+    <script>
+      window.onload = function () {
+        const firstButton = document.querySelector(".menu button");
+        firstButton.click();
+      };
+    </script>
+  </body>
 </html>
